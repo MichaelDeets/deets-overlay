@@ -9,9 +9,7 @@ MY_PN="libjpeg-turbo"
 MY_P="${MY_PN}-${PV}"
 
 DESCRIPTION="Accelerated JPEG library (libjpeg.so.8 ABI provided by libjpeg-turbo)"
-HOMEPAGE="https://libjpeg-turbo.org/ https://sourceforge.net/projects/libjpeg-turbo/"
-#SRC_URI="mirror://sourceforge/${MY_PN}/${MY_P}.tar.gz"
-#SRC_URI="https://sourceforge.net/projects/${MY_PN}/files/${PV}/${MY_P}.tar.gz
+HOMEPAGE="https://github.com/libjpeg-turbo/libjpeg-turbo"
 SRC_URI="https://github.com/${MY_PN}/${MY_PN}/releases/download/${PV}/${MY_P}.tar.gz"
 LICENSE="BSD IJG ZLIB"
 SLOT="8"
