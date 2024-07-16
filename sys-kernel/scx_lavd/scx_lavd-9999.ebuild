@@ -5,9 +5,8 @@
 
 EAPI=8
 
-EGIT_REPO_URI="https://github.com/sched-ext/scx.git"
-
 CRATES="
+	ahash@0.8.11
 	aho-corasick@1.1.3
 	anstream@0.6.14
 	anstyle@1.0.7
@@ -18,55 +17,66 @@ CRATES="
 	autocfg@1.3.0
 	bindgen@0.69.4
 	bitflags@1.3.2
-	bitflags@2.5.0
+	bitflags@2.6.0
 	bitvec@1.0.1
-	buddy-alloc@0.5.1
+	bumpalo@3.16.0
 	camino@1.1.7
 	cargo-platform@0.1.8
 	cargo_metadata@0.15.4
-	cc@1.0.99
+	cargo_metadata@0.18.1
+	cc@1.1.5
 	cexpr@0.6.0
 	cfg-if@1.0.0
 	cfg_aliases@0.1.1
 	clang-sys@1.8.1
-	clap@4.5.7
-	clap_builder@4.5.7
-	clap_derive@4.5.5
+	clap@4.5.9
+	clap_builder@4.5.9
+	clap_derive@4.5.8
 	clap_lex@0.7.1
 	colorchoice@1.0.1
 	const_format@0.2.32
 	const_format_proc_macros@0.2.32
 	convert_case@0.6.0
+	crossbeam-epoch@0.9.18
+	crossbeam-utils@0.8.20
 	ctrlc@3.4.4
 	deranged@0.3.11
-	either@1.12.0
+	either@1.13.0
+	endian-type@0.1.2
+	equivalent@1.0.1
 	errno@0.3.9
 	fastrand@2.1.0
 	fb_procfs@0.7.1
 	filetime@0.2.23
 	funty@2.0.0
 	glob@0.3.1
+	hashbrown@0.14.5
 	heck@0.4.1
 	heck@0.5.0
 	hermit-abi@0.3.9
 	hex@0.4.3
 	home@0.5.9
+	indexmap@2.2.6
 	is_terminal_polyfill@1.70.0
 	itertools@0.12.1
 	itoa@1.0.11
-	lazy_static@1.4.0
+	js-sys@0.3.69
+	lazy_static@1.5.0
 	lazycell@1.3.0
 	libbpf-cargo@0.23.3
 	libbpf-rs@0.23.3
 	libbpf-sys@1.4.2+v1.4.2
 	libc@0.2.155
-	libloading@0.8.3
+	libloading@0.8.4
 	linux-raw-sys@0.4.14
-	log@0.4.21
+	log@0.4.22
 	memchr@2.7.4
 	memmap2@0.5.10
 	memoffset@0.6.5
+	metrics@0.23.0
+	metrics-util@0.17.0
 	minimal-lexical@0.2.1
+	nibble_vec@0.1.0
 	nix@0.25.1
 	nix@0.28.0
 	nom@7.1.3
@@ -77,15 +87,20 @@ CRATES="
 	once_cell@1.19.0
 	openat@0.1.21
 	ordered-float@3.9.2
+	ordered-float@4.2.1
 	paste@1.0.15
 	pin-utils@0.1.0
 	pkg-config@0.3.30
 	plain@0.2.3
+	portable-atomic@1.6.0
 	powerfmt@0.2.0
 	prettyplease@0.2.20
-	proc-macro2@1.0.85
+	proc-macro2@1.0.86
+	quanta@0.12.3
 	quote@1.0.36
 	radium@0.7.0
+	radix_trie@0.2.1
+	raw-cpuid@11.0.2
 	redox_syscall@0.4.1
 	regex@1.10.5
 	regex-automata@0.4.7
@@ -98,11 +113,13 @@ CRATES="
 	ryu@1.0.18
 	same-file@1.0.6
 	semver@1.0.23
-	serde@1.0.203
-	serde_derive@1.0.203
-	serde_json@1.0.117
+	serde@1.0.204
+	serde_derive@1.0.204
+	serde_json@1.0.120
 	shlex@1.3.0
 	simplelog@0.12.2
+	sketches-ddsketch@0.2.2
+	smallvec@1.13.2
 	sscanf@0.4.1
 	sscanf_macro@0.4.1
 	static_assertions@1.1.0
@@ -110,14 +127,14 @@ CRATES="
 	strsim@0.11.1
 	strum_macros@0.24.3
 	syn@1.0.109
-	syn@2.0.66
+	syn@2.0.71
 	tap@1.0.1
 	tar@0.4.41
 	tempfile@3.10.1
 	termcolor@1.4.1
 	terminal_size@0.3.0
-	thiserror@1.0.61
-	thiserror-impl@1.0.61
+	thiserror@1.0.62
+	thiserror-impl@1.0.62
 	threadpool@1.8.1
 	time@0.3.36
 	time-core@0.1.2
@@ -128,45 +145,54 @@ CRATES="
 	unicode-width@0.1.13
 	unicode-xid@0.2.4
 	utf8parse@0.2.2
+	vergen@8.3.2
 	version-compare@0.1.1
 	version_check@0.9.4
 	vsprintf@2.0.0
 	walkdir@2.5.0
+	wasi@0.11.0+wasi-snapshot-preview1
+	wasm-bindgen@0.2.92
+	wasm-bindgen-backend@0.2.92
+	wasm-bindgen-macro@0.2.92
+	wasm-bindgen-macro-support@0.2.92
+	wasm-bindgen-shared@0.2.92
+	web-sys@0.3.69
 	which@4.4.2
+	winapi@0.3.9
+	winapi-i686-pc-windows-gnu@0.4.0
 	winapi-util@0.1.8
+	winapi-x86_64-pc-windows-gnu@0.4.0
 	windows-sys@0.48.0
 	windows-sys@0.52.0
 	windows-targets@0.48.5
-	windows-targets@0.52.5
+	windows-targets@0.52.6
 	windows_aarch64_gnullvm@0.48.5
-	windows_aarch64_gnullvm@0.52.5
+	windows_aarch64_gnullvm@0.52.6
 	windows_aarch64_msvc@0.48.5
-	windows_aarch64_msvc@0.52.5
+	windows_aarch64_msvc@0.52.6
 	windows_i686_gnu@0.48.5
-	windows_i686_gnu@0.52.5
-	windows_i686_gnullvm@0.52.5
+	windows_i686_gnu@0.52.6
+	windows_i686_gnullvm@0.52.6
 	windows_i686_msvc@0.48.5
-	windows_i686_msvc@0.52.5
+	windows_i686_msvc@0.52.6
 	windows_x86_64_gnu@0.48.5
-	windows_x86_64_gnu@0.52.5
+	windows_x86_64_gnu@0.52.6
 	windows_x86_64_gnullvm@0.48.5
-	windows_x86_64_gnullvm@0.52.5
+	windows_x86_64_gnullvm@0.52.6
 	windows_x86_64_msvc@0.48.5
-	windows_x86_64_msvc@0.52.5
+	windows_x86_64_msvc@0.52.6
 	wyz@0.5.1
 	xattr@1.3.1
+	zerocopy@0.7.35
+	zerocopy-derive@0.7.35
 "
 
-inherit cargo git-r3
+inherit cargo
 
 DESCRIPTION="A Latency-criticality Aware Virtual Deadline (LAVD) scheduler based on sched_ext, which is a Linux kernel feature which enables implementing kernel thread schedulers in BPF and dynamically loading them. https://github.com/sched-ext/scx/tree/main"
 # Double check the homepage as the cargo_metadata crate
 # does not provide this value so instead repository is used
 HOMEPAGE="homepage field in Cargo.toml inaccessible to cargo metadata"
-#SRC_URI="https://github.com/sched-ext/scx/archive/refs/tags/v0.1.8.tar.gz -> scx.tar.gz
-SRC_URI="https://github.com/sched-ext/scx/archive/refs/heads/main.tar.gz -> scx.tar.gz
-	${CARGO_CRATE_URIS}
-"
 
 # License set may be more restrictive as OR is not respected
 # use cargo-license for a more accurate license picture
@@ -182,11 +208,17 @@ BDEPEND=""
 # update with proper path to binaries this crate installs, omit leading /
 QA_FLAGS_IGNORED="usr/bin/${PN}"
 
-S="${WORKDIR}/scx_lavd-9999/scheds/rust/scx_lavd"
-
 if [[ ${PV} == 9999 ]]; then
+	inherit git-r3
+	EGIT_REPO_URI="https://github.com/sched-ext/scx.git"
+	SRC_URI="https://github.com/sched-ext/scx/archive/refs/heads/main.tar.gz -> scx.tar.gz
+	${CARGO_CRATE_URIS}"
+	S="${WORKDIR}/scx_lavd-9999/scheds/rust/scx_lavd"
 	src_unpack() {
 		git-r3_src_unpack
 		cargo_live_src_unpack
 	}
+else
+	SRC_URI="${CARGO_CRATE_URIS}"
 fi
+
