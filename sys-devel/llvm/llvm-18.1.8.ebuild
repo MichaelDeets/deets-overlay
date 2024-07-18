@@ -26,6 +26,8 @@ IUSE="
 "
 RESTRICT="!test? ( test )"
 
+PATCHES="${FILESDIR}/fix-znver-kernel.patch"
+
 RDEPEND="
 	sys-libs/zlib:0=[${MULTILIB_USEDEP}]
 	debuginfod? (
