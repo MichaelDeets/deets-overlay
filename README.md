@@ -7,7 +7,7 @@ If you want to add *deets-overlay* to `/etc/portage/repos.conf` so Portage will 
     sync-type = git
     sync-uri = https://github.com/MichaelDeets/deets-overlay.git
 
-For my setup, I put these entries into `/etc/portage/repos.conf/deets.conf`. The location `/etc/portage/repos.conf` could either be a file or folder depending on your configuration.
+I put these entries into `/etc/portage/repos.conf/deets.conf`. The location `/etc/portage/repos.conf` could either be a file or folder depending on your configuration.
 
 After adding the overlay, sync with Portage (you only need to run one of these commands):
 
