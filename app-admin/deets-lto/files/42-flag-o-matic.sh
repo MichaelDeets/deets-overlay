@@ -1,24 +1,24 @@
 OverrideFlagOMatic()
 {
-	if [[ "${ENABLE_FLAGOMATIC}" != "yes" ]]; then
+	if [[ "${ENABLE_FLAGOMATIC}" == "yes" ]]; then
 		strip-flags()
 		{
-			ewarn "deetsLTO: strip-flags OVERRIDDEN"
+			ewarn "deets-overlay: strip-flags OVERRIDDEN"
 		}
 
 		replace-flags()
 		{
-			ewarn "deetsLTO: replace-flags OVERRIDDEN"
+			ewarn "deets-overlay: replace-flags OVERRIDDEN"
 		}
 
 		append-flags()
 		{
-			ewarn "deetsLTO: append-flags OVERRIDDEN"
+			ewarn "deets-overlay: append-flags OVERRIDDEN"
 		}
 
 		filter-flags()
 		{
-			ewarn "deetsLTO: filter-flags OVERRIDDEN"
+			ewarn "deets-overlay: filter-flags OVERRIDDEN"
 		}
 	fi
 }
