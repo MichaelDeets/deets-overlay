@@ -13,7 +13,9 @@ SRC_URI="mirror://debian/pool/main/d/${PN}/${PN}_${PV}.tar.xz"
 LICENSE="BSD GPL-2 SMAIL"
 SLOT="0"
 KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86 ~x86-linux"
-IUSE="static installkernel"
+IUSE="static -installkernel"
+
+DEPEND="installkernel? ( !sys-kernel/installkernel )"
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-3.4.2-no-bs-namespace.patch
