@@ -8,7 +8,6 @@ app-emulation/wine-proton EGIT_OVERRIDE_BRANCH_VALVESOFTWARE_WINE=bleeding-edge
 app_admin/ryzen_smu *FLAGS+="-Wno-missing-prototypes"
 dev-lang/php *FLAGS+="-Wno-implicit-function-declaration -latomic -std=gnu++11"
 dev-lang/python *FLAGS-="-Ofast" *FLAGS+="-O3"
-dev-lang/python ENABLE_FLAGOMATIC=no
 dev-libs/libcdio *FLAGS+="-Wno-implicit-function-declaration"
 dev-libs/rocm-device-libs *FLAGS-="${CFLAGS}" *FLAGS+="-O2 -march=x86-64 -pipe"
 dev-python/PyQt5-sip *FLAGS-="-Ofast" *FLAGS+="-O3"
