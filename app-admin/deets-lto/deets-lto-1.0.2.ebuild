@@ -17,7 +17,7 @@ pkg_preinst() {
 	insinto /etc/portage/package.cflags
 	doins "${FILESDIR}/package.cflags/world"
 	doins "${FILESDIR}/package.cflags/legacy"
-	doins "${FILESDIR}/package.cflags/legacy-other"
+	doins "${FILESDIR}/package.cflags/other"
 	insopts -m 0755
 	insinto /etc/portage/bashrc.d
 	doins "${FILESDIR}/bashrc.d/42-flag-o-matic.sh"
