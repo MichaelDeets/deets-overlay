@@ -1,30 +1,25 @@
+# global
+*/* ENABLE_FLAGOMATIC=yes
+
 # installed
 app-admin/ananicy-cpp *FLAGS+="-Wno-missing-template-arg-list-after-template-kw"
+app-emulation/wine* *FLAGS-="-Ofast" *FLAGS+="-O3"
+app-emulation/wine-proton EGIT_OVERRIDE_BRANCH_VALVESOFTWARE_WINE=bleeding-edge
 app_admin/ryzen_smu *FLAGS+="-Wno-missing-prototypes"
+dev-lang/php *FLAGS+="-Wno-implicit-function-declaration -latomic -std=gnu++11"
 dev-lang/python *FLAGS-="-Ofast" *FLAGS+="-O3"
+dev-lang/python ENABLE_FLAGOMATIC=no
+dev-libs/libcdio *FLAGS+="-Wno-implicit-function-declaration"
+dev-libs/rocm-device-libs *FLAGS-="${CFLAGS}" *FLAGS+="-O2 -march=x86-64 -pipe"
+dev-python/PyQt5-sip *FLAGS-="-Ofast" *FLAGS+="-O3"
+dev-qt/qtwebengine *FLAGS-="${CFLAGS}" *FLAGS+="-O2 ${MNATIVE} -pipe"
+media-libs/embree ENABLE_FLAGOMATIC=no
 media-libs/shaderc *FLAGS-="${CFLAGS}" *FLAGS+="-march=native -O2 -pipe"
 net-dns/c-ares *FLAGS-="${CFLAGS}" *FLAGS+="-march=native -O2 -pipe"
+net-misc/dhcpcd *FLAGS-="-Ofast" *FLAGS+="-O3"
+sys-apps/man-pages *FLAGS-="-Ofast" *FLAGS+="-O3"
+sys-kernel/scx_lavd ENABLE_FLAGOMATIC=no
 sys-libs/glibc LDFLAGS+="-Wl,--hash-style=both"
 x11-drivers/xf86-video-amdgpu *FLAGS-="-Ofast" *FLAGS+="-O3 -Wno-incompatible-pointer-types"
 x11-libs/gtk+ *FLAGS+="-Wno-incompatible-pointer-types"
-sys-apps/man-pages *FLAGS-="-Ofast" *FLAGS+="-O3"
-# not installed
-dev-lang/php *FLAGS+="-Wno-implicit-function-declaration -latomic -std=gnu++11"
-dev-libs/libcdio *FLAGS+="-Wno-implicit-function-declaration"
-dev-libs/rocm-device-libs CLANG_OCL_FLAGS="-Xclang testingtoseeifthisworksmakingalongthingthatprobablywillnotworkidk"
-dev-python/PyQt5-sip *FLAGS-="-Ofast" *FLAGS+="-O3"
-net-misc/dhcpcd *FLAGS-="-Ofast" *FLAGS+="-O3"
-# new
-dev-qt/qtwebengine *FLAGS-="${CFLAGS}" *FLAGS+="-O2 ${MNATIVE} -pipe"
-
-dev-libs/rocm-device-libs *FLAGS-="${CFLAGS}" *FLAGS+="-O2 -march=x86-64 -pipe"
-
 x11-libs/gtk+ MYMESONARGS-="-Datk_bridge=false"
-
-*/* ENABLE_FLAGOMATIC=yes
-
-#dev-lang/python ENABLE_FLAGOMATIC=no
-#dev-util/cargo-ebuild ENABLE_FLAGOMATIC=no RUSTFLAGS-="${RUSTFLAGS}"
-sys-kernel/scx_lavd ENABLE_FLAGOMATIC=no
-media-libs/embree ENABLE_FLAGOMATIC=no
-app-emulation/wine* *FLAGS-="-Ofast" *FLAGS+="-O3"
