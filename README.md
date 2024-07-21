@@ -21,3 +21,9 @@ or
     emerge --sync
 
 According to the wiki, `emerge --sync` should essentially just run `emaint -a sync`, so either command does the same thing.
+
+Notes about *deets-lto*:
+
+These are simply files taken from the old [GentooLTO](https://github.com/InBetweenNames/gentooLTO) project, with minor changes and updates to various entries. The `world` file are entirely from my own experiences using the project, with entries not found in the original GentooLTO project.
+
+The only requirement to use *deets-lto* is the package `app-portage/portage-bashrc-mv` found in the *mv* overlay. This is what enables bashrc.d scripts, including package.cflags.
