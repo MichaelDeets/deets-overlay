@@ -3,7 +3,7 @@
 
 EAPI=8
 
-DESCRIPTION="Re-using bashrc.d scripts from the deprecated GentooLTO project"
+DESCRIPTION="Scripts for bashrc.d and package.cflags, updated and changed from GentooLTO."
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
