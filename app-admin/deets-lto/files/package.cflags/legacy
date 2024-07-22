@@ -204,7 +204,6 @@ www-misc/shellinabox *FLAGS-="-flto*"
 x11-base/xorg-server *FLAGS-="-flto*" *FLAGS-="-fno-plt"
 x11-base/xwayland *FLAGS-="-fipa-pta"
 x11-drivers/xf86-video-intel *FLAGS-="-flto*"
-x11-libs/gtk+:3 MYMESONARGS+="-Datk_bridge=false"
 x11-libs/wxGTK NOLDADD=1 C*FLAGS-="-Wl,*"
 x11-misc/polybar CMAKE_MAKEFILE_GENERATOR=emake
 x11-wm/bspwm *FLAGS-="-fipa-pta"
