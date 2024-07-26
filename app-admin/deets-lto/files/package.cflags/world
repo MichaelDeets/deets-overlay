@@ -1,20 +1,23 @@
 # global
 */* ENABLE_FLAGOMATIC=yes
 
-# installed
+# required to build 
 app-admin/ananicy-cpp *FLAGS+="-Wno-missing-template-arg-list-after-template-kw"
+app-editors/emacs *FLAGS-="-Ofast" *FLAGS+="-O3"
 app-emulation/wine* *FLAGS-="-Ofast" *FLAGS+="-O3"
-app-emulation/wine-proton EGIT_OVERRIDE_BRANCH_VALVESOFTWARE_WINE=bleeding-edge
 app_admin/ryzen_smu *FLAGS+="-Wno-missing-prototypes"
 dev-lang/php *FLAGS+="-Wno-implicit-function-declaration -latomic -std=gnu++11"
 dev-lang/python *FLAGS-="-Ofast" *FLAGS+="-O3"
 dev-libs/libcdio *FLAGS+="-Wno-implicit-function-declaration"
 dev-python/PyQt5-sip *FLAGS-="-Ofast" *FLAGS+="-O3"
+dev-util/lttng-ust *FLAGS+="-Wno-implicit-function-declaration"
 media-libs/embree ENABLE_FLAGOMATIC=no
 net-misc/dhcpcd *FLAGS-="-Ofast" *FLAGS+="-O3"
 sys-apps/man-pages *FLAGS-="-Ofast" *FLAGS+="-O3"
 sys-kernel/scx_lavd ENABLE_FLAGOMATIC=no
 sys-libs/glibc LDFLAGS+="-Wl,--hash-style=both"
 x11-drivers/xf86-video-amdgpu *FLAGS-="-Ofast" *FLAGS+="-O3 -Wno-incompatible-pointer-types"
-x11-libs/gtk+ *FLAGS+="-Wno-incompatible-pointer-types" MYMESONARGS-="-Datk_bridge=false"
-app-editors/emacs *FLAGS-="-Ofast" *FLAGS+="-O3"
+x11-libs/gtk+ *FLAGS+="-Wno-incompatible-pointer-types"
+
+# optional
+app-emulation/wine-proton EGIT_OVERRIDE_BRANCH_VALVESOFTWARE_WINE=bleeding-edge
