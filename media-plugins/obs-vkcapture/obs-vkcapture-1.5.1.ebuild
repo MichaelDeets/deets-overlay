@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 DEPEND="
-	>=media-video/obs-studio-28[wayland]
+	media-video/obs-studio
 	media-libs/libglvnd[${MULTILIB_USEDEP}]
 	x11-libs/libdrm[${MULTILIB_USEDEP}]
 	x11-libs/libxcb:=[${MULTILIB_USEDEP}]
