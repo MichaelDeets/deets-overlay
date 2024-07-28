@@ -5,7 +5,7 @@ EAPI=8
 
 inherit udev tmpfiles
 
-COMMIT="8181bdcb67eaffdb9cb884e4a1fd4c3aed1918fd"
+COMMIT="2ac3844ae4d9d90905de5c29259b1db67a4d79f7"
 MY_PN="CachyOS-Settings"
 
 DESCRIPTION="Settings from CachyOS"
@@ -28,13 +28,8 @@ src_install() {
 	insinto /usr/lib
 	doins -r "usr/lib/sysctl.d"
 	doins -r "usr/lib/tmpfiles.d"
-	udev_dorules "usr/lib/udev/rules.d/30-zram.rules"
-	udev_dorules "usr/lib/udev/rules.d/40-hpet-permissions.rules"
-	udev_dorules "usr/lib/udev/rules.d/50-sata.rules"
-	udev_dorules "usr/lib/udev/rules.d/60-ioschedulers.rules"
-	udev_dorules "usr/lib/udev/rules.d/69-hdparm.rules"
-	udev_dorules "usr/lib/udev/rules.d/71-nvidia.rules"
 	udev_dorules "usr/lib/udev/rules.d/99-cpu-dma-latency.rules"
+	udev_dorules "usr/lib/udev/rules.d/99-ntsync.rules"
 }
 
 pkg_postinst() {
