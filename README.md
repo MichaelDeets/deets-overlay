@@ -27,3 +27,6 @@ According to the wiki, `emerge --sync` should essentially just run `emaint -a sy
 These are simply files taken from the old [GentooLTO](https://github.com/InBetweenNames/gentooLTO) project, with minor changes and updates to various entries. Entries within the `world` file are entirely from my own experiences using the project, not being found in the original GentooLTO project.
 
 The only requirement to use *deets-lto* is the package `app-portage/portage-bashrc-mv` found in the *mv* overlay. This is what enables bashrc.d scripts, including package.cflags.
+
+Please note, do *NOT* edit `legacy/world/other`, please create your own file within `/etc/portage/package.cflags/`. These files are taken directly from my config, and will be updated constantly, which will replace any changes you've made within these files during installation.
+
