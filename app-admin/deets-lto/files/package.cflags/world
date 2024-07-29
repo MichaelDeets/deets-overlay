@@ -1,4 +1,4 @@
-# global
+# global (deets-lto required, danger ahead)
 */* ENABLE_FLAGOMATIC=yes
 
 # required to build 
