@@ -1,4 +1,4 @@
-# flto
+# remove lto
 app-admin/keepassxc *FLAGS-="-flto*"
 app-cdr/cdrtools *FLAGS-="-flto*"
 app-crypt/gcr *FLAGS-="-flto*"
@@ -115,7 +115,7 @@ www-apps/hugo *FLAGS-="-flto*"
 www-misc/shellinabox *FLAGS-="-flto*"
 x11-drivers/xf86-video-intel *FLAGS-="-flto*"
 
-# ipa-pta
+# remove ipa-pta
 dev-db/mongodb *FLAGS-="-fipa-pta"
 dev-db/postgresql *FLAGS-="-fipa-pta"
 dev-lang/R *FLAGS-="-fipa-pta"
@@ -138,7 +138,7 @@ sys-devel/clang *FLAGS-="-flto* -fipa-pta"
 x11-base/xwayland *FLAGS-="-fipa-pta"
 x11-wm/bspwm *FLAGS-="-fipa-pta"
 
-# no-semantic-interposition
+# remove no-semantic-interposition
 app-crypt/tpm2-tss *FLAGS-="-fno-semantic-interposition"
 app-emulation/libvirt *FLAGS-="-fno-semantic-interposition -fipa-pta"
 app-misc/tracker *FLAGS-="-fno-semantic-interposition"
@@ -151,7 +151,7 @@ net-print/cups *FLAGS-="-fno-semantic-interposition"
 sys-devel/llvm *FLAGS-="-flto* -fno-semantic-interposition"
 sys-libs/readline *FLAGS-="-fno-semantic-interposition"
 
-# Ofast
+# remove Ofast
 media-libs/libdv *FLAGS-="-Ofast -flto*" *FLAGS+="-O3"
 media-libs/mesa *FLAGS-="-Ofast -flto* -fipa-pta" *FLAGS+="-O3"
 media-sound/easyeffects *FLAGS-="-Ofast" *FLAGS+="-O3"
@@ -161,7 +161,7 @@ sys-auth/elogind *FLAGS-="-Ofast" *FLAGS+="-O3 -fno-fast-math -fno-finite-math-o
 sys-devel/binutils *FLAGS-="-Ofast -fno-semantic-interposition" *FLAGS+="-O3"
 dev-lang/luajit *FLAGS-="-Ofast -flto*" *FLAGS+="-O3"
 
-# no-plt
+# remove no-plt
 app-arch/xz-utils *FLAGS-="-fno-plt"
 app-emulation/wine* *FLAGS-="-flto* -fno-plt" 
 dev-db/mysql-connector-c *FLAGS-="-fno-plt -flto*"
@@ -170,7 +170,7 @@ dev-libs/icu *FLAGS-="-fno-plt"
 dev-libs/nss *FLAGS-="-fno-plt"
 x11-base/xorg-server *FLAGS-="-fno-plt -flto*"
 
-# tls-dialect=gnu2
+# remove tls-dialect=gnu2
 dev-db/firebird *FLAGS-="-mtls-dialect=gnu2 -flto*"
 dev-lang/mono *FLAGS-="-mtls-dialect=gnu2 -flto*"
 dev-lang/python *FLAGS-="-mtls-dialect=gnu2"
@@ -183,14 +183,14 @@ sys-fs/eudev *FLAGS-="-mtls-dialect=gnu2"
 www-client/firefox *FLAGS-="-mtls-dialect=gnu2 -fipa-pta"
 www-client/torbrowser *FLAGS-="-mtls-dialect=gnu2 -fipa-pta"
 
-# CMAKE_MAKEFILE_GENERATOR=emake
+# set CMAKE_MAKEFILE_GENERATOR=emake
 app-doc/doxygen CMAKE_MAKEFILE_GENERATOR=emake
 dev-lang/swi-prolog CMAKE_MAKEFILE_GENERATOR=emake *FLAGS-="-fno-semantic-interposition"
 games-arcade/supertux CMAKE_MAKEFILE_GENERATOR=emake
 media-libs/musicbrainz CMAKE_MAKEFILE_GENERATOR=emake
 x11-misc/polybar CMAKE_MAKEFILE_GENERATOR=emake
 
-# Other
+# other
 app-emulation/dxvk *FLAGS+="-I/usr/lib/mingw64-toolchain/x86_64-w64-mingw32/include/ -march=x86-64-v3" *FLAGS-="${MNATIVE}"
 app-emulation/qemu *FLAGS-="-flto* -DNDEBUG" *FLAGS+="-fno-strict-aliasing"
 app-emulation/vkd3d-proton MINGW_BYPASS=1
