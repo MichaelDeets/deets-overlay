@@ -152,13 +152,13 @@ sys-devel/llvm *FLAGS-="-flto* -fno-semantic-interposition"
 sys-libs/readline *FLAGS-="-fno-semantic-interposition"
 
 # Ofast
-media-libs/libdv *FLAGS-="-flto* -Ofast" *FLAGS+="-O3"
-media-libs/mesa *FLAGS-="-flto* -fipa-pta -Ofast" *FLAGS+="-O3"
+media-libs/libdv *FLAGS-="-Ofast -flto*" *FLAGS+="-O3"
+media-libs/mesa *FLAGS-="-Ofast -flto* -fipa-pta" *FLAGS+="-O3"
 media-sound/easyeffects *FLAGS-="-Ofast" *FLAGS+="-O3"
-media-video/ffmpeg *FLAGS-="-fno-semantic-interposition -fno-plt -flto* -fipa-pta -Ofast" *FLAGS+="-O3"
+media-video/ffmpeg *FLAGS-="-Ofast -fno-semantic-interposition -fno-plt -flto* -fipa-pta" *FLAGS+="-O3"
 sys-apps/systemd-utils *FLAGS-="-Ofast -flto*" *FLAGS+="-O3"
 sys-auth/elogind *FLAGS-="-Ofast" *FLAGS+="-O3 -fno-fast-math -fno-finite-math-only"
-sys-devel/binutils *FLAGS-="-fno-semantic-interposition -Ofast" *FLAGS+="-O3"
+sys-devel/binutils *FLAGS-="-Ofast -fno-semantic-interposition" *FLAGS+="-O3"
 dev-lang/luajit *FLAGS-="-Ofast -flto*" *FLAGS+="-O3"
 
 # no-plt
@@ -168,7 +168,7 @@ dev-db/mysql-connector-c *FLAGS-="-fno-plt -flto*"
 dev-libs/glib *FLAGS-="-fno-plt"
 dev-libs/icu *FLAGS-="-fno-plt"
 dev-libs/nss *FLAGS-="-fno-plt"
-x11-base/xorg-server *FLAGS-="-flto* -fno-plt"
+x11-base/xorg-server *FLAGS-="-fno-plt -flto*"
 
 # tls-dialect=gnu2
 dev-db/firebird *FLAGS-="-mtls-dialect=gnu2 -flto*"
@@ -185,7 +185,7 @@ www-client/torbrowser *FLAGS-="-mtls-dialect=gnu2 -fipa-pta"
 
 # CMAKE_MAKEFILE_GENERATOR=emake
 app-doc/doxygen CMAKE_MAKEFILE_GENERATOR=emake
-dev-lang/swi-prolog *FLAGS-="-fno-semantic-interposition" CMAKE_MAKEFILE_GENERATOR=emake
+dev-lang/swi-prolog CMAKE_MAKEFILE_GENERATOR=emake *FLAGS-="-fno-semantic-interposition"
 games-arcade/supertux CMAKE_MAKEFILE_GENERATOR=emake
 media-libs/musicbrainz CMAKE_MAKEFILE_GENERATOR=emake
 x11-misc/polybar CMAKE_MAKEFILE_GENERATOR=emake
