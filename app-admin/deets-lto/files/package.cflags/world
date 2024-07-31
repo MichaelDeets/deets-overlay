@@ -21,3 +21,7 @@ x11-libs/gtk+ *FLAGS+="-Wno-incompatible-pointer-types"
 
 # optional
 app-emulation/wine-proton EGIT_OVERRIDE_BRANCH_VALVESOFTWARE_WINE=bleeding-edge
+
+sys-devel/llvm* *FLAGS-="-Ofast" *FLAGS+="-O3"
+sys-devel/polly *FLAGS-="-Ofast" *FLAGS+="-O3"
+sys-devel/clang *FLAGS-="-Ofast" *FLAGS+="-O3"
