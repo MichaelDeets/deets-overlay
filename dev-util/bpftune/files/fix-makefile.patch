@@ -1,0 +1,75 @@
+diff --git a/sample_tuner/Makefile b/sample_tuner/Makefile
+index 2003543..edfdecf 100644
+--- a/sample_tuner/Makefile
++++ b/sample_tuner/Makefile
+@@ -37,7 +37,7 @@ installprefix = $(DESTDIR)/$(prefix)
+ 
+ INSTALLPATH = $(installprefix)
+ 
+-CFLAGS = -fPIC -Wall -Wextra -march=native -g -I../include -std=c99
++CFLAGS = -fPIC -march=x86-64 -g -I../include -std=c99
+ 
+ CFLAGS += -DBPFTUNE_VERSION='"$(BPFTUNE_VERSION)"' $(INCLUDES)
+ 
+diff --git a/src/Makefile b/src/Makefile
+index e1a732e..cac1c2e 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -27,7 +27,7 @@ LLC ?= llc
+ LLVM_STRIP ?= llvm-strip
+ BPFTOOL ?= bpftool
+ BPF_INCLUDE := /usr/include
+-BPF_CFLAGS := -g -fno-stack-protector -Wall
++BPF_CFLAGS := -g -fno-stack-protector
+ NL_INCLUDE := /usr/include/libnl3
+ INCLUDES := -I../include -I$(BPF_INCLUDE) -I$(NL_INCLUDE) -I../include/uapi
+ INSTALL ?= install
+@@ -55,7 +55,7 @@ endif
+ VERSION = 0.1.3
+ VERSION_SCRIPT  := libbpftune.map
+ 
+-CFLAGS = -fPIC -Wall -Wextra -march=native -g -I../include -std=c99
++CFLAGS = -fPIC -march=x86-64 -g -I../include -std=c99
+ 
+ CFLAGS += -DBPFTUNE_VERSION='"$(BPFTUNE_VERSION)"' $(INCLUDES)
+ 
+@@ -104,17 +104,11 @@ NOBTF_BPF_SKELS = $(patsubst %.skel.h,%.skel.nobtf.h,$(BPF_SKELS))
+ 
+ .PHONY: clean
+ 
+-ifeq ($(GCC_BPF),)
+-all: analyze $(OPATH) $(OPATH)bpftune $(TUNER_LIBS)
+-else
+ all: $(OPATH) $(OPATH)bpftune $(TUNER_LIBS)
+-endif
+ 
+ $(OPATH):
+ 	mkdir $(OPATH)
+ 
+-analyze: $(BPF_SKELS) $(LEGACY_BPF_SKELS) $(NOBTF_BPF_SKELS)
+-	$(CLANG) --analyze $(INCLUDES) libbpftune.c bpftune.c $(TUNER_SRCS)
+ clean:
+ 	$(call QUIET_CLEAN, bpftune)
+ 	$(Q)$(RM) $(OPATH)*.o *.d $(OPATH)*.so*
+diff --git a/test/strategy/Makefile b/test/strategy/Makefile
+index f4783bb..823b030 100644
+--- a/test/strategy/Makefile
++++ b/test/strategy/Makefile
+@@ -27,7 +27,7 @@ LLVM_STRIP ?= llvm-strip
+ BPFTOOL ?= bpftool
+ GCC_BPF ?=
+ BPF_INCLUDE := /usr/include
+-BPF_CFLAGS := -g -fno-stack-protector -Wall
++BPF_CFLAGS := -g -fno-stack-protector
+ NL_INCLUDE := /usr/include/libnl3
+ INCLUDES := -I../../include -I$(BPF_INCLUDE) -I$(NL_INCLUDE) -I/usr/include/uapi
+ 
+@@ -39,7 +39,7 @@ installprefix = $(DESTDIR)/$(prefix)
+ 
+ INSTALLPATH = $(installprefix)
+ 
+-CFLAGS = -fPIC -Wall -Wextra -march=native -g -I../include -std=c99
++CFLAGS = -fPIC -march=x86-64 -g -I../include -std=c99
+ 
+ CFLAGS += -DBPFTUNE_VERSION='"$(BPFTUNE_VERSION)"' $(INCLUDES)
+ 
