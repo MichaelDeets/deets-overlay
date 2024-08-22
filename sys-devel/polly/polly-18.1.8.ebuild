@@ -15,6 +15,10 @@ SLOT="${LLVM_MAJOR}/${LLVM_SOABI}"
 IUSE="+debug test"
 RESTRICT="!test? ( test )"
 
+if [[ ${PV} = *9999* || ${PV} = *_rc* ]] ; then
+	KEYWORDS="~amd64"
+fi
+
 DEPEND="
 	~sys-devel/llvm-${PV}:${LLVM_MAJOR}=[debug=]
 "

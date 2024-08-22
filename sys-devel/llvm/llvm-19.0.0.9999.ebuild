@@ -25,6 +25,10 @@ IUSE="
 "
 RESTRICT="!test? ( test )"
 
+if [[ ${PV} = *9999* || ${PV} = *_rc* ]] ; then
+	KEYWORDS="~amd64"
+fi
+
 RDEPEND="
 	sys-libs/zlib:0=[${MULTILIB_USEDEP}]
 	debuginfod? (

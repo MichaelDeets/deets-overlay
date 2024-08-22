@@ -15,6 +15,11 @@ IUSE="
 	default-compiler-rt default-libcxx default-lld
 	bootstrap-prefix cet hardened llvm-libunwind polly
 "
+
+if [[ ${PV} = *9999* || ${PV} = *_rc* ]] ; then
+	KEYWORDS="~amd64"
+fi
+
 DEPEND=" polly? ( ~sys-devel/polly-${PV} ) "
 
 PDEPEND="
