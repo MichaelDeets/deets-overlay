@@ -5,7 +5,7 @@ EAPI=8
 
 inherit udev tmpfiles
 
-COMMIT="2ac3844ae4d9d90905de5c29259b1db67a4d79f7"
+COMMIT="82a5cdc9348208957efdbfc1da4b4ea4b800861e"
 MY_PN="CachyOS-Settings"
 
 DESCRIPTION="Settings from CachyOS"
@@ -24,10 +24,13 @@ src_install() {
 		usr/bin/amdpstate-guided \
 		usr/bin/game-performance \
 		usr/bin/pci-latency \
+		usr/bin/ksmctl \
+		usr/bin/ksmstats \
 		usr/bin/topmem
 	insinto /usr/lib
-	doins -r "usr/lib/sysctl.d"
-	doins -r "usr/lib/tmpfiles.d"
+	doins -r \
+		usr/lib/sysctl.d \
+		usr/lib/tmpfiles.d
 	udev_dorules "usr/lib/udev/rules.d/99-cpu-dma-latency.rules"
 	udev_dorules "usr/lib/udev/rules.d/99-ntsync.rules"
 }
