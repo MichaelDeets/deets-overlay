@@ -8,77 +8,83 @@ EAPI=8
 CRATES="
 	ahash@0.8.11
 	aho-corasick@1.1.3
-	anstream@0.6.14
-	anstyle@1.0.7
-	anstyle-parse@0.2.4
-	anstyle-query@1.1.0
-	anstyle-wincon@3.0.3
-	anyhow@1.0.86
+	anstream@0.6.15
+	anstyle-parse@0.2.5
+	anstyle-query@1.1.1
+	anstyle-wincon@3.0.4
+	anstyle@1.0.8
+	anyhow@1.0.87
 	autocfg@1.3.0
 	bindgen@0.69.4
 	bitflags@1.3.2
 	bitflags@2.6.0
 	bitvec@1.0.1
 	bumpalo@3.16.0
-	camino@1.1.7
+	camino@1.1.9
 	cargo-platform@0.1.8
 	cargo_metadata@0.15.4
 	cargo_metadata@0.18.1
-	cc@1.1.5
+	cc@1.1.18
 	cexpr@0.6.0
 	cfg-if@1.0.0
-	cfg_aliases@0.1.1
+	cfg_aliases@0.2.1
 	clang-sys@1.8.1
-	clap@4.5.9
-	clap_builder@4.5.9
-	clap_derive@4.5.8
-	clap_lex@0.7.1
-	colorchoice@1.0.1
-	const_format@0.2.32
-	const_format_proc_macros@0.2.32
+	clap@4.5.17
+	clap_builder@4.5.17
+	clap_derive@4.5.13
+	clap_lex@0.7.2
+	colorchoice@1.0.2
+	const_format@0.2.31
+	const_format_proc_macros@0.2.31
 	convert_case@0.6.0
+	crossbeam-channel@0.5.13
+	crossbeam-deque@0.8.5
 	crossbeam-epoch@0.9.18
+	crossbeam-queue@0.3.11
 	crossbeam-utils@0.8.20
-	ctrlc@3.4.4
+	crossbeam@0.8.4
+	ctrlc@3.4.5
 	deranged@0.3.11
 	either@1.13.0
 	endian-type@0.1.2
 	equivalent@1.0.1
 	errno@0.3.9
-	fastrand@2.1.0
+	fastrand@2.1.1
 	fb_procfs@0.7.1
-	filetime@0.2.23
+	filetime@0.2.25
 	funty@2.0.0
 	glob@0.3.1
+	gpoint@0.2.1
 	hashbrown@0.14.5
-	heck@0.4.1
 	heck@0.5.0
 	hermit-abi@0.3.9
 	hex@0.4.3
 	home@0.5.9
-	indexmap@2.2.6
-	is_terminal_polyfill@1.70.0
+	indexmap@2.5.0
+	is_terminal_polyfill@1.70.1
 	itertools@0.12.1
+	itertools@0.13.0
 	itoa@1.0.11
-	js-sys@0.3.69
+	js-sys@0.3.70
 	lazy_static@1.5.0
 	lazycell@1.3.0
-	libbpf-cargo@0.23.3
-	libbpf-rs@0.23.3
-	libbpf-sys@1.4.2+v1.4.2
-	libc@0.2.155
-	libloading@0.8.4
+	libbpf-cargo@0.24.4
+	libbpf-rs@0.24.4
+	libbpf-sys@1.4.5+v1.4.5
+	libc@0.2.158
+	libloading@0.8.5
+	libredox@0.1.3
 	linux-raw-sys@0.4.14
 	log@0.4.22
 	memchr@2.7.4
 	memmap2@0.5.10
 	memoffset@0.6.5
-	metrics@0.23.0
 	metrics-util@0.17.0
+	metrics@0.23.0
 	minimal-lexical@0.2.1
 	nibble_vec@0.1.0
 	nix@0.25.1
-	nix@0.28.0
+	nix@0.29.0
 	nom@7.1.3
 	num-conv@0.1.0
 	num-traits@0.2.19
@@ -87,83 +93,84 @@ CRATES="
 	once_cell@1.19.0
 	openat@0.1.21
 	ordered-float@3.9.2
-	ordered-float@4.2.1
+	ordered-float@4.2.2
 	paste@1.0.15
 	pin-utils@0.1.0
 	pkg-config@0.3.30
 	plain@0.2.3
-	portable-atomic@1.6.0
+	portable-atomic@1.7.0
 	powerfmt@0.2.0
-	prettyplease@0.2.20
+	prettyplease@0.2.22
 	proc-macro2@1.0.86
 	quanta@0.12.3
-	quote@1.0.36
+	quote@1.0.37
 	radium@0.7.0
 	radix_trie@0.2.1
-	raw-cpuid@11.0.2
-	redox_syscall@0.4.1
-	regex@1.10.5
+	raw-cpuid@11.1.0
+	redox_syscall@0.5.3
 	regex-automata@0.4.7
 	regex-syntax@0.6.29
 	regex-syntax@0.8.4
-	rlimit@0.10.1
+	regex@1.10.6
 	rustc-hash@1.1.0
-	rustix@0.38.34
+	rustix@0.38.36
 	rustversion@1.0.17
 	ryu@1.0.18
 	same-file@1.0.6
+	scx_stats@1.0.5
+	scx_stats_derive@1.0.5
+	scx_utils@1.0.5
 	semver@1.0.23
-	serde@1.0.204
-	serde_derive@1.0.204
-	serde_json@1.0.120
+	serde@1.0.210
+	serde_derive@1.0.210
+	serde_json@1.0.128
 	shlex@1.3.0
 	simplelog@0.12.2
 	sketches-ddsketch@0.2.2
 	smallvec@1.13.2
-	sscanf@0.4.1
-	sscanf_macro@0.4.1
+	sscanf@0.4.2
+	sscanf_macro@0.4.2
 	static_assertions@1.1.0
 	strsim@0.10.0
 	strsim@0.11.1
-	strum_macros@0.24.3
-	syn@1.0.109
-	syn@2.0.71
+	syn@2.0.77
 	tap@1.0.1
 	tar@0.4.41
-	tempfile@3.10.1
+	tempfile@3.12.0
 	termcolor@1.4.1
 	terminal_size@0.3.0
-	thiserror@1.0.62
-	thiserror-impl@1.0.62
+	thiserror-impl@1.0.63
+	thiserror@1.0.63
 	threadpool@1.8.1
-	time@0.3.36
 	time-core@0.1.2
 	time-macros@0.2.18
+	time@0.3.36
 	unicase@2.7.0
 	unicode-ident@1.0.12
 	unicode-segmentation@1.11.0
-	unicode-width@0.1.13
-	unicode-xid@0.2.4
+	unicode-width@0.1.12
+	unicode-xid@0.2.5
 	utf8parse@0.2.2
 	vergen@8.3.2
 	version-compare@0.1.1
-	version_check@0.9.4
+	version_check@0.9.5
 	vsprintf@2.0.0
 	walkdir@2.5.0
 	wasi@0.11.0+wasi-snapshot-preview1
-	wasm-bindgen@0.2.92
-	wasm-bindgen-backend@0.2.92
-	wasm-bindgen-macro@0.2.92
-	wasm-bindgen-macro-support@0.2.92
-	wasm-bindgen-shared@0.2.92
-	web-sys@0.3.69
+	wasm-bindgen-backend@0.2.93
+	wasm-bindgen-macro-support@0.2.93
+	wasm-bindgen-macro@0.2.93
+	wasm-bindgen-shared@0.2.93
+	wasm-bindgen@0.2.93
+	web-sys@0.3.70
 	which@4.4.2
-	winapi@0.3.9
 	winapi-i686-pc-windows-gnu@0.4.0
-	winapi-util@0.1.8
+	winapi-util@0.1.9
 	winapi-x86_64-pc-windows-gnu@0.4.0
+	winapi@0.3.9
 	windows-sys@0.48.0
 	windows-sys@0.52.0
+	windows-sys@0.59.0
 	windows-targets@0.48.5
 	windows-targets@0.52.6
 	windows_aarch64_gnullvm@0.48.5
@@ -183,8 +190,8 @@ CRATES="
 	windows_x86_64_msvc@0.52.6
 	wyz@0.5.1
 	xattr@1.3.1
-	zerocopy@0.7.35
 	zerocopy-derive@0.7.35
+	zerocopy@0.7.35
 "
 
 inherit cargo
