@@ -327,9 +327,9 @@ if [[ ${PV} == 9999 ]]; then
 		cargo_live_src_unpack
 	}
 else
-	COMMIT="18a80977bb26c5f625b087bd8275e1bfd51df4f3"
+	COMMIT="7402895f4a127fb3c223a8607a80b91975ced3e0"
 	SRC_URI="https://github.com/sched-ext/scx/archive/${COMMIT}.tar.gz -> scx_lavd.tar.gz
 	${CARGO_CRATE_URIS}"
-	S="${WORKDIR}/scx-main/scheds/rust/scx_lavd"
+	S="${WORKDIR}/scx-${COMMIT}/scheds/rust/scx_lavd"
 fi
 
