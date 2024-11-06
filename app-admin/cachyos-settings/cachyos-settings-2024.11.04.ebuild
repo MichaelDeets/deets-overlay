@@ -5,7 +5,7 @@ EAPI=8
 
 inherit udev tmpfiles
 
-COMMIT="d22e3fd047e4a597a3e2157ea3e46254c4891c49"
+COMMIT="c4da0f79ee883903bfb5d4bda1b2f545cb75247d"
 MY_PN="CachyOS-Settings"
 
 DESCRIPTION="Settings from CachyOS"
