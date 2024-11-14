@@ -7,12 +7,12 @@ if [[ ${PV} == 9999 ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/Open-Wine-Components/umu-launcher"
 else
+	SRC_URI="https://github.com/Open-Wine-Components/umu-launcher/archive/refs/tags/${PV}.tar.gz"
 	KEYWORDS="~amd64"
 fi
 
 DESCRIPTION="Unified Launcher for WINE, to run Proton with fixes outside of Steam"
 HOMEPAGE="https://github.com/Open-Wine-Components/umu-launcher"
-SRC_URI=""
 
 LICENSE="GPL-3"
 SLOT="0"
