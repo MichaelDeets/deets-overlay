@@ -1,17 +1,17 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 MY_PN=${PN/-bin/}
 MY_BIN="D${MY_PN/d/}"
-MY_BIN="${MY_BIN/-development/}Development"
+MY_BIN="${MY_BIN/-canary/}Canary"
 
 inherit desktop linux-info pax-utils unpacker xdg
 
 DESCRIPTION="All-in-one voice and text chat"
 HOMEPAGE="https://discord.com/"
-SRC_URI="https://dl-development.discordapp.net/apps/linux/${PV}/${MY_PN}-${PV}.deb"
+SRC_URI="https://dl-canary.discordapp.net/apps/linux/${PV}/${MY_PN}-${PV}.deb"
 S="${WORKDIR}"
 
 LICENSE="all-rights-reserved"
@@ -53,19 +53,19 @@ RDEPEND="
 "
 
 QA_PREBUILT="
-	opt/discord-development/${MY_BIN}
-	opt/discord-development/chrome_crashpad_handler
-	opt/discord-development/chrome-sandbox
-	opt/discord-development/libffmpeg.so
-	opt/discord-development/libvk_swiftshader.so
-	opt/discord-development/libvulkan.so
-	opt/discord-development/libvulkan.so.1
-	opt/discord-development/libEGL.so
-	opt/discord-development/libGLESv2.so
-	opt/discord-development/libVkICD_mock_icd.so
-	opt/discord-development/swiftshader/libEGL.so
-	opt/discord-development/swiftshader/libGLESv2.so
-	opt/discord-development/swiftshader/libvk_swiftshader.so
+	opt/discord-canary/${MY_BIN}
+	opt/discord-canary/chrome_crashpad_handler
+	opt/discord-canary/chrome-sandbox
+	opt/discord-canary/libffmpeg.so
+	opt/discord-canary/libvk_swiftshader.so
+	opt/discord-canary/libvulkan.so
+	opt/discord-canary/libvulkan.so.1
+	opt/discord-canary/libEGL.so
+	opt/discord-canary/libGLESv2.so
+	opt/discord-canary/libVkICD_mock_icd.so
+	opt/discord-canary/swiftshader/libEGL.so
+	opt/discord-canary/swiftshader/libGLESv2.so
+	opt/discord-canary/swiftshader/libvk_swiftshader.so
 "
 
 CONFIG_CHECK="~USER_NS"
@@ -79,7 +79,7 @@ src_prepare() {
 }
 
 src_install() {
-	newicon usr/share/${MY_PN}/${MY_PN//-development/}.png ${MY_PN}.png
+	newicon usr/share/${MY_PN}/${MY_PN//-canary/}.png ${MY_PN}.png
 	domenu usr/share/${MY_PN}/${MY_PN}.desktop
 
 	insinto /opt/${MY_PN}
