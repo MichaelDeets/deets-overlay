@@ -12,19 +12,19 @@ index 2003543..edfdecf 100644
  CFLAGS += -DBPFTUNE_VERSION='"$(BPFTUNE_VERSION)"' $(INCLUDES)
  
 diff --git a/src/Makefile b/src/Makefile
-index 7add159..fc34ad1 100644
+index cdb7f65..9ebb64a 100644
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -27,7 +27,7 @@ LLC ?= llc
- LLVM_STRIP ?= llvm-strip
+@@ -28,7 +28,7 @@ LLVM_STRIP ?= llvm-strip
  BPFTOOL ?= bpftool
  BPF_INCLUDE := /usr/include
+ BPF_LOCAL_INCLUDE := /usr/local/include
 -BPF_CFLAGS := -g -fno-stack-protector -Wall
 +BPF_CFLAGS := -g -fno-stack-protector
  NL_INCLUDE := /usr/include/libnl3
- INCLUDES := -I../include -I$(BPF_INCLUDE) -I$(NL_INCLUDE) -I../include/uapi
+ INCLUDES := -I../include -I$(BPF_INCLUDE) -I$(BPF_LOCAL_INCLUDE) -I$(NL_INCLUDE) -I../include/uapi
  INSTALL ?= install
-@@ -56,7 +56,7 @@ endif
+@@ -58,7 +58,7 @@ endif
  VERSION = 0.1.3
  VERSION_SCRIPT  := libbpftune.map
  
@@ -33,13 +33,14 @@ index 7add159..fc34ad1 100644
  
  CFLAGS += -DBPFTUNE_VERSION='"$(BPFTUNE_VERSION)"' \
  	  -DBPFTUNER_PREFIX_DIR='"$(prefix)"' \
-@@ -108,17 +108,11 @@ NOBTF_BPF_SKELS = $(patsubst %.skel.h,%.skel.nobtf.h,$(BPF_SKELS))
+@@ -113,18 +113,12 @@ BPFTUNE_HDRS = ../include/bpftune/libbpftune.h \
  
  .PHONY: clean
  
 -ifeq ($(GCC_BPF),)
 -all: analyze $(OPATH) $(OPATH)bpftune $(TUNER_LIBS)
 -else
+ BPF_CFLAGS += -std=gnu17
  all: $(OPATH) $(OPATH)bpftune $(TUNER_LIBS)
 -endif
  
@@ -52,7 +53,7 @@ index 7add159..fc34ad1 100644
  	$(call QUIET_CLEAN, bpftune)
  	$(Q)$(RM) $(OPATH)*.o *.d $(OPATH)*.so*
 diff --git a/test/strategy/Makefile b/test/strategy/Makefile
-index f4783bb..823b030 100644
+index 35964c0..041d690 100644
 --- a/test/strategy/Makefile
 +++ b/test/strategy/Makefile
 @@ -27,7 +27,7 @@ LLVM_STRIP ?= llvm-strip
