@@ -372,8 +372,7 @@ QA_FLAGS_IGNORED="usr/bin/${PN}"
 if [[ ${PV} == 9999 ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/sched-ext/scx.git"
-	SRC_URI="https://github.com/sched-ext/scx/archive/refs/heads/main.tar.gz -> scx_lavd.tar.gz
-	${CARGO_CRATE_URIS}"
+	SRC_URI="${CARGO_CRATE_URIS}"
 	S="${WORKDIR}/scx_lavd-9999/scheds/rust/scx_lavd"
 	src_unpack() {
 		git-r3_src_unpack

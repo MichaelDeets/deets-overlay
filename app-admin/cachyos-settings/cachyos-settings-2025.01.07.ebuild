@@ -24,8 +24,6 @@ src_install() {
 		usr/bin/amdpstate-guided \
 		usr/bin/game-performance \
 		usr/bin/pci-latency \
-		usr/bin/ksmctl \
-		usr/bin/ksmstats \
 		usr/bin/topmem
 	insinto /usr/lib
 	doins -r \
