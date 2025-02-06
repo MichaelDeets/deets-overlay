@@ -191,9 +191,7 @@ media-libs/musicbrainz CMAKE_MAKEFILE_GENERATOR=emake
 x11-misc/polybar CMAKE_MAKEFILE_GENERATOR=emake
 
 # other
-app-emulation/dxvk *FLAGS+="-I/usr/lib/mingw64-toolchain/x86_64-w64-mingw32/include/ -march=x86-64-v3" *FLAGS-="${MNATIVE}"
 app-emulation/qemu *FLAGS-="-flto* -DNDEBUG" *FLAGS+="-fno-strict-aliasing"
-app-emulation/vkd3d-proton MINGW_BYPASS=1
 dev-lang/ruby *FLAGS+="-fno-strict-aliasing" *FLAGS-="-flto*"
 dev-lisp/clisp *FLAGS+="-falign-functions"
 dev-python/lxml *FLAGS+="-Wno-deprecated-declarations -Wno-incompatible-pointer-types"
