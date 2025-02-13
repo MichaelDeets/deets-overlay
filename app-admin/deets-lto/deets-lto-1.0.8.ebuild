@@ -15,7 +15,7 @@ DEPEND="${RDEPEND}"
 pkg_preinst() {
 	insopts -m 0644
 	insinto /etc/portage/package.cflags
-	#doins "${FILESDIR}/package.cflags/world"
+	doins "${FILESDIR}/package.cflags/deets-overlay"
 	doins "${FILESDIR}/package.cflags/legacy"
 	doins "${FILESDIR}/package.cflags/other"
 	insopts -m 0755

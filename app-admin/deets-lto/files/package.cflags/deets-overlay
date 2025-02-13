@@ -24,5 +24,7 @@ x11-libs/gtk+ *FLAGS+="-Wno-incompatible-pointer-types"
 app-emulation/wine-proton EGIT_OVERRIDE_BRANCH_VALVESOFTWARE_WINE=bleeding-edge
 cross-i686-w64-mingw32/gcc EXTRA_ECONF="--enable-threads=posix --disable-sjlj-exceptions --with-dwarf2"
 cross-x86_64-w64-mingw32/gcc EXTRA_ECONF="--enable-threads=posix --disable-sjlj-exceptions --with-dwarf2"
-app-emulation/dxvk *FLAGS-="-Wl,-z,norelro,-z,now"
-app-emulation/vkd3d-proton *FLAGS-="-Wl,-z,norelro,-z,now"
+
+app-emulation/dxvk *FLAGS+="-march=x86-64-v3" *FLAGS-="${MNATIVE} -Wl,-z,norelro,-z,now"
+app-emulation/vkd3d-proton *FLAGS-="-flto* -Wl,-z,norelro,-z,now"
+
