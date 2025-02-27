@@ -1,18 +1,5 @@
-diff --git a/sample_tuner/Makefile b/sample_tuner/Makefile
-index 2003543..edfdecf 100644
---- a/sample_tuner/Makefile
-+++ b/sample_tuner/Makefile
-@@ -37,7 +37,7 @@ installprefix = $(DESTDIR)/$(prefix)
- 
- INSTALLPATH = $(installprefix)
- 
--CFLAGS = -fPIC -Wall -Wextra -march=native -g -I../include -std=c99
-+CFLAGS = -fPIC -march=x86-64 -g -I../include -std=c99
- 
- CFLAGS += -DBPFTUNE_VERSION='"$(BPFTUNE_VERSION)"' $(INCLUDES)
- 
 diff --git a/src/Makefile b/src/Makefile
-index cdb7f65..9ebb64a 100644
+index cdb7f65..df7f3c1 100644
 --- a/src/Makefile
 +++ b/src/Makefile
 @@ -28,7 +28,7 @@ LLVM_STRIP ?= llvm-strip
@@ -29,7 +16,7 @@ index cdb7f65..9ebb64a 100644
  VERSION_SCRIPT  := libbpftune.map
  
 -CFLAGS = -fPIC -Wall -Wextra -g -I../include -std=c99
-+CFLAGS = -fPIC -march=x86-64 -g -I../include -std=c99
++CFLAGS = -fPIC -Wextra -g -I../include -std=c99
  
  CFLAGS += -DBPFTUNE_VERSION='"$(BPFTUNE_VERSION)"' \
  	  -DBPFTUNER_PREFIX_DIR='"$(prefix)"' \
@@ -53,7 +40,7 @@ index cdb7f65..9ebb64a 100644
  	$(call QUIET_CLEAN, bpftune)
  	$(Q)$(RM) $(OPATH)*.o *.d $(OPATH)*.so*
 diff --git a/test/strategy/Makefile b/test/strategy/Makefile
-index 35964c0..041d690 100644
+index 35964c0..8519fe2 100644
 --- a/test/strategy/Makefile
 +++ b/test/strategy/Makefile
 @@ -27,7 +27,7 @@ LLVM_STRIP ?= llvm-strip
@@ -70,7 +57,7 @@ index 35964c0..041d690 100644
  INSTALLPATH = $(installprefix)
  
 -CFLAGS = -fPIC -Wall -Wextra -march=native -g -I../include -std=c99
-+CFLAGS = -fPIC -march=x86-64 -g -I../include -std=c99
++CFLAGS = -fPIC -Wextra -march=native -g -I../include -std=c99
  
  CFLAGS += -DBPFTUNE_VERSION='"$(BPFTUNE_VERSION)"' $(INCLUDES)
  
