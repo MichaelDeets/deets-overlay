@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -19,6 +19,11 @@ fi
 if [[ -n ${MOZ_ESR} ]] ; then
 	# ESR releases have slightly different version numbers
 	MOZ_PV="${MOZ_PV}esr"
+	HOMEPAGE="https://www.mozilla.com/firefox https://www.mozilla.org/firefox/enterprise/"
+	SLOT="esr"
+else
+	HOMEPAGE="https://www.mozilla.com/firefox"
+	SLOT="rapid"
 fi
 
 MOZ_PN="${PN%-bin}"
@@ -30,23 +35,24 @@ inherit desktop linux-info optfeature pax-utils xdg
 
 MOZ_SRC_BASE_URI="https://archive.mozilla.org/pub/${MOZ_PN}/nightly/latest-mozilla-central"
 
-SRC_URI="amd64? ( ${MOZ_SRC_BASE_URI}/${MOZ_P}.en-US.linux-x86_64.tar.bz2 -> ${PN}_x86_64-${PV}.tar.bz2 )
-	x86? ( ${MOZ_SRC_BASE_URI}/${MOZ_P}.en-US.linux-i686.tar.bz2 -> ${PN}_i686-${PV}.tar.bz2 )"
+SRC_URI="amd64? ( ${MOZ_SRC_BASE_URI}/${MOZ_P}.en-US.linux-x86_64.tar.xz -> ${PN}_x86_64-${PV}.tar.xz )
+	x86? ( ${MOZ_SRC_BASE_URI}/${MOZ_P}.en-US.linux-i686.tar.xz -> ${PN}_i686-${PV}.tar.xz )"
 
 DESCRIPTION="Firefox Web Browser"
-HOMEPAGE="https://www.mozilla.com/firefox"
 
-KEYWORDS="-* amd64 x86"
-SLOT="nightly"
+KEYWORDS="-* amd64 ~x86"
 LICENSE="MPL-2.0 GPL-2 LGPL-2.1"
-IUSE="+alsa +ffmpeg +gmp-autoupdate +pulseaudio selinux wayland"
+IUSE="+gmp-autoupdate selinux wayland"
 
 RESTRICT="strip"
 
 BDEPEND="app-arch/unzip"
 RDEPEND="${DEPEND}
 	!www-client/firefox-bin:0
-	!www-client/firefox-bin:esr
+	|| (
+		media-libs/libpulse
+		media-sound/apulse
+	)
 	>=app-accessibility/at-spi2-core-2.46.0:2
 	>=dev-libs/glib-2.26:2
 	media-libs/alsa-lib
@@ -56,7 +62,7 @@ RDEPEND="${DEPEND}
 	virtual/freedesktop-icon-theme
 	>=x11-libs/cairo-1.10[X]
 	x11-libs/gdk-pixbuf:2
-	>=x11-libs/gtk+-3.11:3[wayland?]
+	>=x11-libs/gtk+-3.11:3[X,wayland?]
 	x11-libs/libX11
 	x11-libs/libXcomposite
 	x11-libs/libXcursor
@@ -68,13 +74,15 @@ RDEPEND="${DEPEND}
 	x11-libs/libXrender
 	x11-libs/libxcb
 	>=x11-libs/pango-1.22.0
-	alsa? (
-		!pulseaudio? ( media-sound/apulse )
-	)
-	ffmpeg? ( media-video/ffmpeg )
-	pulseaudio? ( media-libs/libpulse )
 	selinux? ( sec-policy/selinux-mozilla )
 "
+
+# ESR and rapid dependencies.
+if [[ -n ${MOZ_ESR} ]] ; then
+	RDEPEND+=" !www-client/firefox-bin:rapid"
+else
+	RDEPEND+=" !www-client/firefox-bin:esr"
+fi
 
 QA_PREBUILT="opt/${MOZ_PN}/*"
 
@@ -90,7 +98,7 @@ MOZ_LANGS=(
 	fa ff fi fr fy-NL ga-IE gd gl gn gu-IN he hi-IN hr hsb hu hy-AM
 	ia id is it ja ka kab kk km kn ko lij lt lv mk mr ms my
 	nb-NO ne-NP nl nn-NO oc pa-IN pl pt-BR pt-PT rm ro ru sco
-	si sk sl son sq sr sv-SE ta te th tl tr trs uk ur uz vi
+	si sk skr sl son sq sr sv-SE ta te th tl tr trs uk ur uz vi
 	xh zh-CN zh-TW
 )
 
@@ -248,9 +256,14 @@ src_install() {
 	local app_name="Mozilla ${MOZ_PN^} (bin)"
 	local desktop_file="${FILESDIR}/${PN}-r3.desktop"
 	local desktop_filename="${PN}.desktop"
-	local exec_command="${PN}"
 	local icon="${PN}"
 	local use_wayland="false"
+
+	if [[ -n ${MOZ_ESR} ]] ; then
+		local exec_command="${PN} --name=firefox"
+	else
+		local exec_command="${PN}"
+	fi
 
 	if use wayland ; then
 		use_wayland="true"
@@ -259,10 +272,15 @@ src_install() {
 	cp "${desktop_file}" "${WORKDIR}/${PN}.desktop-template" || die
 
 	# Add apulse support through our wrapper shell launcher, patchelf-method broken since 119.0.
-	# See bgo#916230
+	# See bgo#916230, bgo#941873
 	local apulselib=
-	if use alsa && ! use pulseaudio ; then
+	if has_version -r media-sound/apulse[-sdk] ; then
 		apulselib="${EPREFIX}/usr/$(get_libdir)/apulse"
+		ewarn "media-sound/apulse with -sdk use flag detected!"
+		ewarn "Firefox-bin will be installed with a wrapper, that attempts to load"
+		ewarn "apulse instead of pipewire/pulseadio. This may lead to sound issues."
+		ewarn "Please either enable sdk use flag for apulse, or remove apulse"
+		ewarn "completely and re-install firefox-bin to utilize pipewire/pulseaudio instead."
 	fi
 
 	sed -i \
@@ -303,24 +321,12 @@ pkg_postinst() {
 		elog
 	fi
 
-	use ffmpeg || ewarn "USE=-ffmpeg : HTML5 video will not render without media-video/ffmpeg installed"
-
-	local show_doh_information show_normandy_information show_shortcut_information
+	local show_doh_information show_normandy_information
 
 	if [[ -z "${REPLACING_VERSIONS}" ]] ; then
 		# New install; Tell user that DoH is disabled by default
 		show_doh_information=yes
 		show_normandy_information=yes
-		show_shortcut_information=no
-	else
-		local replacing_version
-		for replacing_version in ${REPLACING_VERSIONS} ; do
-			if ver_test "${replacing_version}" -lt 91.0 ; then
-				# Tell user that we no longer install a shortcut
-				# per supported display protocol
-				show_shortcut_information=yes
-			fi
-		done
 	fi
 
 	if [[ -n "${show_doh_information}" ]] ; then
@@ -350,17 +356,9 @@ pkg_postinst() {
 		elog "in about:config."
 	fi
 
-	if [[ -n "${show_shortcut_information}" ]] ; then
-		elog
-		elog "Since firefox-91.0 we no longer install multiple shortcuts for"
-		elog "each supported display protocol.  Instead we will only install"
-		elog "one generic Mozilla Firefox shortcut."
-		elog "If you still want to be able to select between running Mozilla Firefox"
-		elog "on X11 or Wayland, you have to re-create these shortcuts on your own."
-	fi
-
 	optfeature_header "Optional programs for extra features:"
 	optfeature "speech syntesis (text-to-speech) support" app-accessibility/speech-dispatcher
 	optfeature "fallback mouse cursor theme e.g. on WMs" gnome-base/gsettings-desktop-schemas
+	optfeature "ffmpeg-based audio/video codec support, required for HTML5 video rendering" media-video/ffmpeg
 	optfeature "desktop notifications" x11-libs/libnotify
 }
