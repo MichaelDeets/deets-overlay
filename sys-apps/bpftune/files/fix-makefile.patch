@@ -1,18 +1,18 @@
 diff --git a/src/Makefile b/src/Makefile
-index cdb7f65..df7f3c1 100644
+index f32d2ca..f5ee3d8 100644
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -28,7 +28,7 @@ LLVM_STRIP ?= llvm-strip
+@@ -29,7 +29,7 @@ LLVM_STRIP ?= llvm-strip
  BPFTOOL ?= bpftool
  BPF_INCLUDE := /usr/include
  BPF_LOCAL_INCLUDE := /usr/local/include
--BPF_CFLAGS := -g -fno-stack-protector -Wall
-+BPF_CFLAGS := -g -fno-stack-protector
+-BPF_CFLAGS := -g -fno-stack-protector -Wall -Wno-incompatible-pointer-types-discards-qualifiers
++BPF_CFLAGS := -g -fno-stack-protector -Wno-incompatible-pointer-types-discards-qualifiers
  NL_INCLUDE := /usr/include/libnl3
  INCLUDES := -I../include -I$(BPF_INCLUDE) -I$(BPF_LOCAL_INCLUDE) -I$(NL_INCLUDE) -I../include/uapi
  INSTALL ?= install
-@@ -58,7 +58,7 @@ endif
- VERSION = 0.1.3
+@@ -59,7 +59,7 @@ endif
+ VERSION = 0.2.1
  VERSION_SCRIPT  := libbpftune.map
  
 -CFLAGS = -fPIC -Wall -Wextra -g -I../include -std=c99
@@ -20,7 +20,7 @@ index cdb7f65..df7f3c1 100644
  
  CFLAGS += -DBPFTUNE_VERSION='"$(BPFTUNE_VERSION)"' \
  	  -DBPFTUNER_PREFIX_DIR='"$(prefix)"' \
-@@ -113,18 +113,12 @@ BPFTUNE_HDRS = ../include/bpftune/libbpftune.h \
+@@ -123,18 +123,12 @@ BPFTUNE_HDRS = ../include/bpftune/libbpftune.h \
  
  .PHONY: clean
  
@@ -39,25 +39,3 @@ index cdb7f65..df7f3c1 100644
  clean:
  	$(call QUIET_CLEAN, bpftune)
  	$(Q)$(RM) $(OPATH)*.o *.d $(OPATH)*.so*
-diff --git a/test/strategy/Makefile b/test/strategy/Makefile
-index 35964c0..8519fe2 100644
---- a/test/strategy/Makefile
-+++ b/test/strategy/Makefile
-@@ -27,7 +27,7 @@ LLVM_STRIP ?= llvm-strip
- BPFTOOL ?= bpftool
- GCC_BPF ?=
- BPF_INCLUDE := /usr/include
--BPF_CFLAGS := -g -fno-stack-protector -Wall
-+BPF_CFLAGS := -g -fno-stack-protector
- NL_INCLUDE := /usr/include/libnl3
- INCLUDES := -I../../include -I$(BPF_INCLUDE) -I$(NL_INCLUDE) -I/usr/include/uapi
- 
-@@ -39,7 +39,7 @@ installprefix = $(DESTDIR)/$(prefix)
- 
- INSTALLPATH = $(installprefix)
- 
--CFLAGS = -fPIC -Wall -Wextra -march=native -g -I../include -std=c99
-+CFLAGS = -fPIC -Wextra -march=native -g -I../include -std=c99
- 
- CFLAGS += -DBPFTUNE_VERSION='"$(BPFTUNE_VERSION)"' $(INCLUDES)
- 
