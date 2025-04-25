@@ -92,6 +92,7 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-deprecated-stb.patch
+	"${FILESDIR}"/${PN}-reverse-glm.patch
 )
 
 FILECAPS=(
