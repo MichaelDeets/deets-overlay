@@ -1,7 +1,12 @@
-# Copyright 2024 Gentoo Authors
+# Copyright 2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
+
+CARGO_OPTIONAL=1
+DISTUTILS_EXT=1
+DISTUTILS_USE_PEP517=hatchling
+PYTHON_COMPAT=( python3_{11..13} )
 
 CRATES="
 	autocfg@1.4.0
@@ -28,11 +33,11 @@ CRATES="
 	pem-rfc7468@0.7.0
 	portable-atomic@1.10.0
 	proc-macro2@1.0.92
-	pyo3-build-config@0.23.4
-	pyo3-ffi@0.23.4
-	pyo3-macros-backend@0.23.4
-	pyo3-macros@0.23.4
-	pyo3@0.23.4
+	pyo3-build-config@0.24.2
+	pyo3-ffi@0.24.2
+	pyo3-macros-backend@0.24.2
+	pyo3-macros@0.24.2
+	pyo3@0.24.2
 	quote@1.0.38
 	rand_core@0.6.4
 	rustc_version@0.4.1
@@ -44,7 +49,7 @@ CRATES="
 	ssh-key@0.6.7
 	subtle@2.6.1
 	syn@2.0.96
-	target-lexicon@0.12.16
+	target-lexicon@0.13.2
 	typenum@1.17.0
 	unicode-ident@1.0.14
 	unindent@0.2.3
@@ -52,46 +57,105 @@ CRATES="
 	zeroize@1.8.1
 "
 
-inherit cargo python-utils-r1
+inherit cargo distutils-r1
+
+DESCRIPTION="Unified launcher for Windows games on Linux"
+HOMEPAGE="https://github.com/Open-Wine-Components/umu-launcher"
 
 if [[ ${PV} == 9999 ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/Open-Wine-Components/umu-launcher"
+else
+	SRC_URI="https://github.com/Open-Wine-Components/umu-launcher/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz
+		${CARGO_CRATE_URIS}"
+	KEYWORDS="~amd64"
+fi
+
+LICENSE="GPL-3"
+# Dependent crate licenses
+LICENSE+=" Apache-2.0-with-LLVM-exceptions BSD MIT Unicode-3.0"
+SLOT="0"
+IUSE="delta-update"
+
+RDEPEND="
+	>=dev-python/python-xlib-0.33[${PYTHON_USEDEP}]
+	>=dev-python/urllib3-2.0.0[${PYTHON_USEDEP}]
+	delta-update? (
+		>=dev-python/cbor2-5.4.6[${PYTHON_USEDEP}]
+		>=dev-python/pyzstd-0.16.2[${PYTHON_USEDEP}]
+		>=dev-python/xxhash-3.2.0[${PYTHON_USEDEP}]
+	)
+"
+BDEPEND="
+	app-text/scdoc
+	delta-update? (
+		${RUST_DEPEND}
+	)
+	test? (
+		>=dev-python/cbor2-5.4.6[${PYTHON_USEDEP}]
+		>=dev-python/pyzstd-0.16.2[${PYTHON_USEDEP}]
+		>=dev-python/xxhash-3.2.0[${PYTHON_USEDEP}]
+	)
+"
+
+if [[ ${PV} != 9999 ]]; then
+	PATCHES=(
+		"${FILESDIR}/${P}-optional-delta.patch"
+	)
+fi
+
+QA_FLAGS_IGNORED=".*/site-packages/umu/.*so"
+
+EPYTEST_DESELECT=(
+	# https://github.com/Open-Wine-Components/umu-launcher/blob/28eef5f5638d5660fb2d7c1811c8f2915a5e8c5b/packaging/nix/unwrapped.nix#L49
+	umu/umu_test.py::TestGameLauncher::test_parse_args_noopts
+)
+
+distutils_enable_tests pytest
+
+if [[ ${PV} == 9999 ]]; then
 	src_unpack() {
 		git-r3_src_unpack
 		cargo_live_src_unpack
 	}
 else
-	SRC_URI="https://github.com/Open-Wine-Components/umu-launcher/archive/refs/tags/${PV}.tar.gz
-	${CARGO_CRATE_URIS}"
-	KEYWORDS="~amd64"
+	src_unpack() {
+		if use delta-update; then
+			cargo_src_unpack
+		else
+			default
+		fi
+	}
 fi
 
-DESCRIPTION="Unified Launcher for WINE, to run Proton with fixes outside of Steam"
-HOMEPAGE="https://github.com/Open-Wine-Components/umu-launcher"
-
-LICENSE="GPL-3"
-SLOT="0"
-
-DEPEND="
-	app-text/scdoc
-	dev-vcs/git
-	dev-python/installer
-	dev-python/build
-	dev-python/hatchling"
-
-RDEPEND="
-	${DEPEND}
-	dev-python/python-xlib
-	dev-python/filelock"
-
-BDEPEND=""
-
 src_configure() {
-	./configure.sh --prefix=/usr
-	emake
+	distutils-r1_src_configure
+	./configure.sh --prefix="${EPREFIX}"/usr || die
+}
+
+src_compile() {
+	distutils-r1_src_compile
+	emake umu-docs
+	if use delta-update; then
+		cargo_src_compile
+		cp "$(cargo_target_dir)"/{libumu_delta.so,umu_delta.so} || die
+	fi
+}
+
+python_test() {
+	epytest -o 'python_files=test_*.py *_test_*.py *_test.py'
+}
+
+python_install() {
+	distutils-r1_python_install
+	if use delta-update; then
+		python_moduleinto umu
+		python_domodule "$(cargo_target_dir)"/umu_delta.so
+	fi
 }
 
 src_install() {
-	make DESTDIR="${D}" install
+	distutils-r1_src_install
+	emake DESTDIR="${D}" umu-docs-install
 }
+
