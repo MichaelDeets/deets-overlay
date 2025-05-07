@@ -20,6 +20,9 @@ sys-libs/glibc LDFLAGS+="-Wl,--hash-style=both"
 x11-drivers/xf86-video-amdgpu *FLAGS-="-Ofast" *FLAGS+="-O3 -Wno-incompatible-pointer-types"
 x11-libs/gtk+ *FLAGS+="-Wno-incompatible-pointer-types"
 
+# required to run
+media-video/obs-studio *FLAGS-="-flto*"
+
 # mingw and wine
 app-emulation/wine-proton EGIT_OVERRIDE_BRANCH_VALVESOFTWARE_WINE=bleeding-edge
 cross-i686-w64-mingw32/gcc EXTRA_ECONF="--enable-threads=posix --disable-sjlj-exceptions --with-dwarf2"
