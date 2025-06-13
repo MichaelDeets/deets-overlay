@@ -17,6 +17,7 @@ IUSE="systemd zram"
 REQUIRED_USE="zram? ( systemd )"
 
 RDEPEND="
+	app-shells/bash
 	sys-apps/hdparm
 	sys-apps/pciutils
 	sys-process/procps
@@ -29,7 +30,8 @@ RDEPEND="
 
 src_install() {
 	# only install script that make sense
-	dobin usr/bin/amdpstate-guided
+	dobin usr/bin/dlss-swapper
+	dobin usr/bin/dlss-swapper-dll
 	dobin usr/bin/game-performance
 	dobin usr/bin/kerver
 	dobin usr/bin/pci-latency
@@ -67,6 +69,9 @@ src_install() {
 		insinto "${systemd_utildir}/system"
 		doins -r  usr/lib/systemd/system/*.service.d
 
+		insinto "${systemd_utildir}/system"
+		doins -r  usr/lib/systemd/system/*.slice.d
+
 		insinto "${systemd_utildir}/user.conf.d"
 		doins usr/lib/systemd/user.conf.d/*
 
@@ -83,8 +88,11 @@ src_install() {
 
 pkg_postinst() {
 	udev_reload
-	tmpfiles_process coredump.conf disable-zswap.conf \
-		optimize-interruptfreq.conf thp-shrinker.conf thp.conf
+	tmpfiles_process \
+		coredump.conf \
+		optimize-interruptfreq.conf \
+		thp-shrinker.conf \
+		thp.conf
 }
 
 pkg_postrm() {
