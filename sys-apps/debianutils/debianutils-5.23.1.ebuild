@@ -22,6 +22,8 @@ PATCHES=(
 	"${FILESDIR}"/installkernel.patch
 )
 
+S="${WORKDIR}/${PN}"
+
 src_prepare() {
 	# Avoid adding po4a dependency, upstream refreshes manpages.
 	sed -i -e '/SUBDIRS/s|po4a||' Makefile.am || die
