@@ -4,7 +4,7 @@
 EAPI=8
 
 # There are no official releases
-CHECKSUM="802cd454f25469d3123e678af41364153c132c2a"
+CHECKSUM="f58f558c120e9b32c217290b80bad1a0729fbb2c"
 
 DESCRIPTION="single-file public domain (or MIT licensed) libraries for C/C++"
 HOMEPAGE="https://github.com/nothings/stb"
