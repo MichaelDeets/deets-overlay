@@ -94,3 +94,4 @@ pkg_postinst() {
 pkg_postrm() {
 	udev_reload
 }
+
