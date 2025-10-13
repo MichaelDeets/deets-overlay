@@ -36,8 +36,7 @@ inherit desktop linux-info optfeature pax-utils xdg
 MOZ_SRC_BASE_URI="https://archive.mozilla.org/pub/${MOZ_PN}/nightly/latest-mozilla-central"
 
 SRC_URI="amd64? ( ${MOZ_SRC_BASE_URI}/${MOZ_P}.en-US.linux-x86_64.tar.xz -> ${PN}_x86_64-${PV}.tar.xz )
-	arm64? ( ${MOZ_SRC_BASE_URI}/${MOZ_P}.en-US.linux-aarch64.tar.xz -> ${PN}_aarch64-${PV}.tar.xz )
-	x86? ( ${MOZ_SRC_BASE_URI}/${MOZ_P}.en-US.linux-i686.tar.xz -> ${PN}_i686-${PV}.tar.xz )"
+	arm64? ( ${MOZ_SRC_BASE_URI}/${MOZ_P}.en-US.linux-aarch64.tar.xz -> ${PN}_aarch64-${PV}.tar.xz )"
 
 DESCRIPTION="Firefox Web Browser"
 
