@@ -1,4 +1,5 @@
-### If you want to use net-im/discord-canary-bin, please use something like Vencord, so you can skip updates, as it requires a emerge update every few days.
+### net-im/discord-canary-bin
+If you want to use Discord Canary, please use something like Vencord, so you can skip updates, as it requires a emerge update every few days.
 
 ### *deets-overlay* is a personal collection of Gentoo ebuilds, that I have taken from various overlays, official or otherwise.
 
