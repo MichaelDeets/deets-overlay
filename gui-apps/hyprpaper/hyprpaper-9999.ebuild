@@ -20,6 +20,8 @@ LICENSE="BSD"
 SLOT="0"
 
 RDEPEND="
+	dev-util/hyprtoolkit
+	gui-wm/hyprwire
 	dev-libs/hyprgraphics
 	>=dev-libs/hyprlang-0.6.0
 	dev-libs/wayland
