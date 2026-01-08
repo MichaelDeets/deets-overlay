@@ -6,7 +6,7 @@ EAPI=8
 CARGO_OPTIONAL=1
 DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=hatchling
-PYTHON_COMPAT=( python3_{11..13} )
+PYTHON_COMPAT=( python3_{11..14} )
 
 CRATES="
 	autocfg@1.4.0
@@ -33,16 +33,16 @@ CRATES="
 	pem-rfc7468@0.7.0
 	portable-atomic@1.10.0
 	proc-macro2@1.0.92
-	pyo3-build-config@0.24.2
-	pyo3-ffi@0.24.2
-	pyo3-macros-backend@0.24.2
-	pyo3-macros@0.24.2
-	pyo3@0.24.2
+	pyo3-build-config@0.25.1
+	pyo3-ffi@0.25.1
+	pyo3-macros-backend@0.25.1
+	pyo3-macros@0.25.1
+	pyo3@0.25.1
 	quote@1.0.38
 	rand_core@0.6.4
 	rustc_version@0.4.1
 	semver@1.0.24
-	sha2@0.10.8
+	sha2@0.10.9
 	signature@2.2.0
 	ssh-cipher@0.2.0
 	ssh-encoding@0.2.0
@@ -75,6 +75,7 @@ LICENSE="GPL-3"
 # Dependent crate licenses
 LICENSE+=" Apache-2.0-with-LLVM-exceptions BSD MIT Unicode-3.0"
 SLOT="0"
+KEYWORDS="~amd64"
 IUSE="delta-update"
 
 RDEPEND="
@@ -98,11 +99,9 @@ BDEPEND="
 	)
 "
 
-if [[ ${PV} != 9999 ]]; then
-	PATCHES=(
-		"${FILESDIR}/${P}-optional-delta.patch"
-	)
-fi
+PATCHES=(
+	"${FILESDIR}/${PN}-1.2.9-optional-delta.patch"
+)
 
 QA_FLAGS_IGNORED=".*/site-packages/umu/.*so"
 
@@ -113,20 +112,13 @@ EPYTEST_DESELECT=(
 
 distutils_enable_tests pytest
 
-if [[ ${PV} == 9999 ]]; then
-	src_unpack() {
-		git-r3_src_unpack
-		cargo_live_src_unpack
-	}
-else
-	src_unpack() {
-		if use delta-update; then
-			cargo_src_unpack
-		else
-			default
-		fi
-	}
-fi
+src_unpack() {
+	if use delta-update; then
+		cargo_src_unpack
+	else
+		default
+	fi
+}
 
 src_configure() {
 	distutils-r1_src_configure
