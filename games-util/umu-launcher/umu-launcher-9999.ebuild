@@ -112,13 +112,20 @@ EPYTEST_DESELECT=(
 
 distutils_enable_tests pytest
 
-src_unpack() {
-	if use delta-update; then
-		cargo_src_unpack
-	else
-		default
-	fi
-}
+if [[ ${PV} == 9999 ]]; then
+	src_unpack() {
+		git-r3_src_unpack
+		cargo_live_src_unpack
+	}
+else
+	src_unpack() {
+		if use delta-update; then
+			cargo_src_unpack
+		else
+			default
+		fi
+	}
+fi
 
 src_configure() {
 	distutils-r1_src_configure
