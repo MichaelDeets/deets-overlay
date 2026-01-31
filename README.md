@@ -1,7 +1,9 @@
-### net-im/discord-canary-bin
+## Please do not rely on packages listed here. They will change seemingly "randomly" based on my system.
+
+## net-im/discord-canary-bin
 If you want to use Discord Canary, please use something like Vencord, so you can skip updates, as it requires a emerge update every few days. I only update when I have to reopen Discord, which could be 24-78 hours later.
 
-### *deets-overlay* is a personal collection of Gentoo ebuilds, that I have taken from various overlays, official or otherwise.
+## *deets-overlay* is a personal collection of Gentoo ebuilds, that I have taken from various overlays, official or otherwise.
 
 If you want to add *deets-overlay* to `/etc/portage/repos.conf` so Portage will automatically sync, append the following:
 
