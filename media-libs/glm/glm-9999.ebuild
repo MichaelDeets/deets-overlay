@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -11,9 +11,16 @@ HOMEPAGE="http://glm.g-truc.net/"
 if [[ ${PV} == "9999" ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/g-truc/${PN}.git"
+	PATCHES=(
+		"${FILESDIR}"/${PN}-0.9.9.8-big-endian-tests.patch
+	)
 else
 	SRC_URI="https://github.com/g-truc/glm/archive/${PV}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="amd64 arm arm64 ~loong ppc ppc64 ~riscv sparc x86"
+	PATCHES=(
+		"${FILESDIR}"/${PN}-0.9.9.8-big-endian-tests.patch
+		"${FILESDIR}"/${PN}-1.0.2-cmake.patch
+	)
 fi
 
 LICENSE="|| ( HappyBunny MIT )"
@@ -23,10 +30,6 @@ IUSE="test cpu_flags_x86_sse2 cpu_flags_x86_sse3
 	cpu_flags_x86_avx cpu_flags_x86_avx2"
 RESTRICT="!test? ( test )"
 
-PATCHES=(
-	"${FILESDIR}"/${PN}-0.9.9.6-simd.patch
-	"${FILESDIR}"/${PN}-0.9.9.8-big-endian-tests.patch
-)
 
 DOCS=( manual.md readme.md )
 
