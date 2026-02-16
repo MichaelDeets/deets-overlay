@@ -1,5 +1,7 @@
 ## Please do not rely on packages listed here. They will change seemingly "randomly" based on my system.
 
+If you were using Hyprland ebuilds from this overlay; switch to `hyproverlay`, and remove misnamed packages using `emerge -avC` during transitioning.
+
 ## net-im/discord-canary-bin
 If you want to use Discord Canary, please use something like Vencord, so you can skip updates, as it requires a emerge update every few days. I only update when I have to reopen Discord, which could be 24-78 hours later.
 
@@ -29,7 +31,7 @@ According to the wiki, `emerge --sync` should essentially just run `emaint -a sy
 
 ### Notes about `app-admin/deets-lto`:
 
-These are simply files taken from the old [GentooLTO](https://github.com/InBetweenNames/gentooLTO) project, with minor changes and updates to various entries. Entries within the `world` file are entirely from my own experiences using the project, not being found in the original GentooLTO project.
+These are simply files taken from the old [GentooLTO](https://github.com/InBetweenNames/gentooLTO) project, with minor changes and updates to various entries. Entries within the `deets-overlay` file are entirely from my own experiences using the project, not being found in the original GentooLTO project.
 
 The only requirement to use *deets-lto* is the package `app-portage/portage-bashrc-mv` found in the *mv* overlay. This is what enables bashrc.d scripts, including package.cflags.
 
