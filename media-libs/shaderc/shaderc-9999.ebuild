@@ -1,13 +1,14 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..13} )
-inherit cmake-multilib multibuild python-any-r1
+PYTHON_COMPAT=( python3_{11..14} )
+inherit cmake-multilib dot-a python-any-r1
 
 DESCRIPTION="Collection of tools, libraries and tests for shader compilation"
 HOMEPAGE="https://github.com/google/shaderc"
+
 if [[ ${PV} == *9999* ]]; then
 	EGIT_REPO_URI="https://github.com/google/shaderc"
 	inherit git-r3
@@ -23,15 +24,18 @@ SLOT="0"
 IUSE="doc"
 
 RDEPEND="
-	dev-util/glslang
-	dev-util/spirv-tools
+	>=dev-util/glslang-1.4.335.0:=[${MULTILIB_USEDEP}]
+	>=dev-util/spirv-tools-1.4.335.0[${MULTILIB_USEDEP}]
 "
 DEPEND="${RDEPEND}
 	${PYTHON_DEPS}
-	dev-util/spirv-headers"
+	>=dev-util/spirv-headers-1.4.335.0"
 
 BDEPEND="doc? ( dev-ruby/asciidoctor )"
 
+PATCHES=(
+	"${FILESDIR}"/${PN}-2020.4-fix-build.patch
+)
 
 # https://github.com/google/shaderc/issues/470
 RESTRICT=test
@@ -59,6 +63,7 @@ src_prepare() {
 }
 
 multilib_src_configure() {
+	lto-guarantee-fat
 	local mycmakeargs=(
 		-DSHADERC_SKIP_TESTS="true"
 		-DSHADERC_ENABLE_WERROR_COMPILE="false"
@@ -78,4 +83,6 @@ multilib_src_install() {
 		use doc && local HTML_DOCS=( "${BUILD_DIR}/glslc/README.html" )
 	fi
 	cmake_src_install
+	strip-lto-bytecode
 }
+
