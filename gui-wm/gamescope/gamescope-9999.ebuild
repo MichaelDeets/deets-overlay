@@ -15,31 +15,22 @@ EGIT_SUBMODULES=( src/reshade subprojects/{libliftoff,vkroots,wlroots} )
 if [[ ${PV} == "9999" ]]; then
 	EGIT_REPO_URI="https://github.com/ValveSoftware/${PN}.git"
 	inherit git-r3
-else
-	RESHADE_COMMIT="696b14cd6006ae9ca174e6164450619ace043283"
-	LIBLIFTOFF_COMMIT="0.5.0" # Upstream points at this release.
-	VKROOTS_COMMIT="5106d8a0df95de66cc58dc1ea37e69c99afc9540"
-	WLROOTS_COMMIT="4bc5333a2cbba0b0b88559f281dbde04b849e6ef"
-	SRC_URI="
-		https://github.com/ValveSoftware/${PN}/archive/refs/tags/${MY_PV}.tar.gz -> ${P}.tar.gz
-		https://gitlab.freedesktop.org/emersion/libliftoff/-/releases/v${LIBLIFTOFF_COMMIT}/downloads/libliftoff-${LIBLIFTOFF_COMMIT}.tar.gz
-		https://github.com/Joshua-Ashton/reshade/archive/${RESHADE_COMMIT}.tar.gz -> reshade-${RESHADE_COMMIT}.tar.gz
-		https://github.com/Joshua-Ashton/vkroots/archive/${VKROOTS_COMMIT}.tar.gz -> vkroots-${VKROOTS_COMMIT}.tar.gz
-		https://github.com/Joshua-Ashton/wlroots/archive/${WLROOTS_COMMIT}.tar.gz -> wlroots-${WLROOTS_COMMIT}.tar.gz
-	"
-	KEYWORDS="~amd64"
 fi
 
 S="${WORKDIR}/${PN}-${MY_PV}"
 LICENSE="BSD-2"
 SLOT="0"
-IUSE="avif libei pipewire +sdl +wsi-layer"
+IUSE="avif libei pipewire +sdl systemd +wsi-layer"
+
+# systemd is automagic, but that's unlikely to be an issue in practise. It would
+# be rare for a user to switch from systemd to OpenRC.
 
 RDEPEND="
 	dev-lang/luajit:2=
-	>=dev-libs/wayland-1.23
+	>=dev-libs/libinput-1.14.0:=
+	>=dev-libs/wayland-1.23.1
 	gui-libs/libdecor
-	<media-libs/libdisplay-info-0.3:=
+	<media-libs/libdisplay-info-0.4:=
 	media-libs/vulkan-loader
 	sys-apps/hwdata
 	sys-libs/libcap
@@ -51,36 +42,36 @@ RDEPEND="
 	x11-libs/libXext
 	x11-libs/libXfixes
 	x11-libs/libXi
-	x11-libs/libxkbcommon
+	>=x11-libs/libxkbcommon-1.8.0
 	x11-libs/libXmu
 	x11-libs/libXrender
 	x11-libs/libXres
 	x11-libs/libXtst
 	x11-libs/libXxf86vm
+	>=x11-libs/pixman-0.43.0
+	virtual/libudev
 	avif? ( >=media-libs/libavif-1.0.0:= )
 	libei? ( dev-libs/libei )
 	pipewire? ( >=media-video/pipewire-0.3:= )
 	sdl? ( media-libs/libsdl2[video,vulkan] )
+	systemd? ( sys-apps/systemd:= )
 	wsi-layer? ( x11-libs/libxcb )
 "
 # For bundled wlroots.
 RDEPEND+="
-	>=dev-libs/libinput-1.14.0:=
 	media-libs/libglvnd
-	media-libs/mesa[egl(+),gles2(+)]
+	>=media-libs/mesa-24.1.0_rc1[opengl]
 	sys-auth/seatd:=
-	virtual/libudev
 	x11-base/xwayland
 	x11-libs/libxcb:=
-	>=x11-libs/pixman-0.42.0
 	x11-libs/xcb-util-wm
 "
 DEPEND="
 	${RDEPEND}
-	>=dev-libs/wayland-protocols-1.34
+	>=dev-libs/wayland-protocols-1.41
 	>=dev-libs/stb-20240201-r1
 	dev-util/vulkan-headers
-	media-libs/glm
+	>=media-libs/glm-1.0.1
 	dev-util/spirv-headers
 	wsi-layer? ( >=media-libs/vkroots-0_p20240430 )
 "
@@ -92,7 +83,7 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-deprecated-stb.patch
-	"${FILESDIR}"/${PN}-reverse-glm.patch
+	"${FILESDIR}"/${PN}-subprojects.patch
 )
 
 FILECAPS=(
