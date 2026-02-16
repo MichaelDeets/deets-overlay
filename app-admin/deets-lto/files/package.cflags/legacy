@@ -193,7 +193,6 @@ app-emulation/qemu *FLAGS-="-flto* -DNDEBUG" *FLAGS+="-fno-strict-aliasing"
 dev-lang/ruby *FLAGS+="-fno-strict-aliasing" *FLAGS-="-flto*"
 dev-lisp/clisp *FLAGS+="-falign-functions"
 dev-python/lxml *FLAGS+="-Wno-deprecated-declarations -Wno-incompatible-pointer-types"
-dev-python/pycryptodome *FLAGS-="${MNATIVE} -flto*" *FLAGS+="-march=x86-64-v3"
 dev-tex/chktex "use pcre && FlagSubAllFlags -flto*"
 dev-util/colm NOLAFILEREMOVE=true
 gui-wm/gamescope *FLAGS-="-DNDEBUG"
