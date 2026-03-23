@@ -3,7 +3,9 @@
 If you were using Hyprland ebuilds from this overlay; switch to `hyproverlay`, and remove misnamed packages using `emerge -avC` during transitioning.
 
 ## net-im/discord-canary-bin
-If you want to use Discord Canary, please use something like Vencord, so you can skip updates, as it requires a emerge update every few days. I only update when I have to reopen Discord, which could be 24-78 hours later.
+If you want to use Discord Canary, please use something like Vencord or follow the guide bellow, so you can skip updates, as it requires a emerge update every few days. I only update when I have to reopen Discord, which could be 24-78 hours later.
+
+[CachyOS Guide (works everywhere) to bypass updates](https://wiki.archlinux.org/title/Discord#Discord_asks_for_an_update_not_yet_available_in_the_repository)
 
 ## *deets-overlay* is a personal collection of Gentoo ebuilds, that I have taken from various overlays, official or otherwise.
 
