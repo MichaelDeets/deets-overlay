@@ -22,7 +22,6 @@ RDEPEND="
 	sys-apps/inxi
 	sys-process/procps
 	virtual/udev
-	X? ( x11-drivers/xf86-input-libinput )
 	zram? (
 		sys-apps/zram-generator
 		app-arch/zstd
