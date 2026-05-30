@@ -92,9 +92,9 @@ BDEPEND="
 	')
 "
 
-PATCHES=(
-	"${FILESDIR}"/mangohud-0.8.3-fix-llvm.patch
-)
+#PATCHES=(
+#	"${FILESDIR}"/mangohud-0.8.3-fix-llvm.patch
+#)
 
 python_check_deps() {
 	python_has_version "dev-python/mako[${PYTHON_USEDEP}]"
