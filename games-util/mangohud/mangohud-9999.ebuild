@@ -133,6 +133,7 @@ src_configure() {
 		$(meson_native_use_feature plots mangoplot)
 		# tests not hooked up anymore
 		-Dtests=disabled
+		-Dwith_mangohud_next=false
 		$(meson_feature wayland with_wayland)
 		-Dappend_libdir_mangohud=true
 		-Ddynamic_string_tokens=true
